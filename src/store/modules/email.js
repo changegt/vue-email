@@ -14,9 +14,8 @@ const email = {
 	actions: {
 		getEmailLists ({commit}) {
 			return new Promise((resolve, reject) => {
-				getEmailLists().then(response => {
-					const data = response.data;
-					if(data.errorCode === 0){
+				getEmailLists().then(data => {
+					if(data.errorCode === 200){
 						commit('SET_LISTS', data.result);
 						resolve(data.result);
 					}else{
@@ -26,6 +25,20 @@ const email = {
 		          reject(error)
 		        });
 			});
+		},
+
+		getEmail ({commit}, {emailpath}) {
+			return new Promise((resolve, reject) => {
+				getEmail(emailpath).then(data => {
+					if(data.errorCode === 200){
+						resolve(data.result);
+					}else{
+						alert('error');
+					}
+				}).catch(error => {
+					reject(error);
+				})
+			})
 		}
 	}
 }
